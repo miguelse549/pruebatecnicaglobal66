@@ -1,58 +1,86 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-unit-jest" target="_blank" rel="noopener">unit-jest</a></li>
+
+    <input
+      type="text"
+      placeholder="Search"
+      v-model="search"
+      @keyup="searchPokemons(search)"
+    />
+
+    <h1>LISTA GENERAL</h1>
+    <ul v-for="(pokemon, index) in this.dataPokemons" :key="index">
+      <li>{{ pokemon.name }}</li>
+      <button @click="addFavorites(pokemon)">favoritos</button>
     </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+
+    <h1>FAVORITOS</h1>
+    <ul v-for="(pokemon, index) in this.listFavorite" :key="index">
+      <li>{{ pokemon.name }}</li>
+      <button @click="addFavorites(pokemon, pokemon.favorite)">
+        favoritos
+      </button>
     </ul>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import { mapState, mapMutations } from "vuex";
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+  data() {
+    return {
+      search: "",
+      dataPokemons: [],
+      listF: [],
+    };
+  },
+  computed: {
+    ...mapState(["listFavorite"]),
+  },
+  methods: {
+    ...mapMutations(["addFavorite"]),
+
+    searchPokemons(value) {
+      var filterPokemon = this.dataPokemons.filter(
+        (pokemon) =>
+          pokemon.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      );
+      this.dataPokemons = filterPokemon;
+      // console.log("valor" + JSON.stringify(filterPokemon));
+      if ((value = null || value == "")) {
+        this.getPokemons();
+      }
+    },
+
+    /*addFavorites(pokemon) {
+      this.listF.push(pokemon);
+      this.addFavorite(this.listF);
+    },*/
+
+    async getPokemons() {
+      await axios
+        .get("https://pokeapi.co/api/v2/pokemon")
+        .then((response) => {
+          this.dataPokemons = response.data.results;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getPokemons();
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>

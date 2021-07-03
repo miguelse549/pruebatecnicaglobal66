@@ -1,18 +1,40 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="h-screen flex flex-col items-center justify-evenly">
+    <div>
+      <img src="../../public/logo.svg" alt="logoPokemon" />
+    </div>
+
+    <div class="flex flex-col items-center max-w-screen-sm">
+      <h1 class="font-bold text-2xl text-fontColor-darkgray text-h2">
+        Welcome to Pokédex
+      </h1>
+      <p class="px-5 text-center pt-5 text-fontColor-gray text-p">
+        The digital encyclopedia created by Professor Oak is an invaluable tool
+        to Trainers in the Pokémon world.
+      </p>
+    </div>
+
+    <PButton :nameButton="'Get Started'"></PButton>
   </div>
+
+  <!--<div class="about">
+    <h1 class="font-lato">Name: Squirtle</h1>
+    <h2 class="bg-background-200">Lorem ipsum dolor sit.</h2>
+    <h3 class="bg-background-100">Name: Squirtle</h3>
+  </div>-->
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import PButton from "@/components/UI/PButton.vue";
 export default {
-  name: 'Home',
+  data() {
+    return {};
+  },
   components: {
-    HelloWorld
-  }
-}
+    PButton,
+  },
+};
 </script>
+<style scoped>
+
+
+</style>
