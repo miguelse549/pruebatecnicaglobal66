@@ -18,6 +18,13 @@ const routes = [
         name: 'SearchPokemon',
         component: () =>
             import ('../views/SearchPokemon.vue')
+    },
+
+    {
+        path: '/modal',
+        name: 'Modal',
+        component: () =>
+            import ('../components/UI/Modal.vue')
     }
 
 ]

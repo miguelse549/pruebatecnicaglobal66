@@ -12,7 +12,7 @@
     "
   >
     <div class="flex justify-center">
-      <img class="animate-bounce" src="../../assets/loader.svg" alt="" />
+      <img class="animate-bounce" src="../../assets/pokebola.svg" alt="" />
     </div>
   </div>
 </template>

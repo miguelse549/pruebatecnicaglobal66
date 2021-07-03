@@ -1,40 +1,44 @@
 <template>
-  <div class="bg-background-lightgray min-h-screen pt-10">
-    <div class="container-width mx-auto">
-      <div class="search flex items-center bg-white">
-        <i class="fas fa-search mr-2 text-fontColor-ligthgray"></i
-        ><input class="w-full" type="text" placeholder="Search" />
+  <div>
+    <Modal />
+    <div class="main-container bg-background-lightgray pt-10">
+      <div class="container-width mx-auto">
+        <div class="search flex items-center bg-white">
+          <i class="fas fa-search mr-2 text-fontColor-ligthgray"></i
+          ><input class="w-full" type="text" placeholder="Search" />
+        </div>
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <Card class="mt-3" />
+        <div class="flex flex-col items-center noitems">
+          <h1 class="text-h1 text-fontColor-darkgray">Uh-oh!</h1>
+          <p class="text-pd text-fontColor-gray">
+            You look lost on your journey!
+          </p>
+          <PButton class="mt-3" :nameButton="'Go back home'" />
+        </div>
       </div>
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <Card class="mt-3" />
-      <div class="flex flex-col items-center noitems">
-        <h1 class="text-h1 text-fontColor-darkgray">Uh-oh!</h1>
-        <p class="text-pd text-fontColor-gray">
-          You look lost on your journey!
-        </p>
-        <PButton class="mt-3" :nameButton="'Go back home'" />
-      </div>
+      <BottonNavegation />
     </div>
-    <BottonNavegation />
   </div>
 </template>
 
 <script>
 import PButton from "@/components/UI/PButton.vue";
 import BottonNavegation from "@/components/UI/BottonNavegation.vue";
+import Modal from "@/components/UI/Modal.vue";
 import Card from "@/components/UI/Card.vue";
 export default {
   name: "SearchPokemon",
@@ -42,14 +46,20 @@ export default {
     PButton,
     BottonNavegation,
     Card,
+    Modal,
   },
 };
 </script>
 
 <style scoped>
+.main-container {
+  max-height: calc(100vh - 80px);
+  overflow-x: scroll;
+}
 .container-width {
   max-width: 570px;
   padding: 0 30px;
+  max-height: calc(100vh - 80px);
 }
 .search {
   height: 50px;
