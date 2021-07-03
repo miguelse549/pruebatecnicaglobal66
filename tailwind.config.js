@@ -7,7 +7,8 @@ module.exports = {
             'h1': '36px',
             'h2': '26px',
             'p': '18px',
-            'pd': '20px'
+            'pd': '20px',
+            'h3':'22px'
         },
 
         extend: {
@@ -19,7 +20,8 @@ module.exports = {
                 },
                 background: {
                     lightgray: '#E5E5E5',
-                    white: '#FFFFFF'
+                    white: '#FFFFFF',
+                    gray:'#F5F5F5'
                 },
                 fontColor: {
                     gray: '#5E5E5E',
