@@ -1,8 +1,16 @@
 <template>
   <div>
-    <Loading />
+    <!-- <Loading /> -->
 
-    <div class="h-screen flex flex-col items-center justify-evenly">
+    <div
+      class="
+        bg-background-lightgray
+        h-screen
+        flex flex-col
+        items-center
+        justify-evenly
+      "
+    >
       <div>
         <img src="../assets/logo.svg" alt="logoPokemon" />
       </div>
@@ -25,17 +33,11 @@ import PButton from "@/components/UI/PButton.vue";
 import Loading from "@/components/UI/Loading.vue";
 
 export default {
-  data() {
-    return {};
-  },
+  name: "Home",
   components: {
     PButton,
     Loading,
   },
 };
 </script>
-<
-    Loadingstyle scoped>
 
-
-</style>

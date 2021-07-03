@@ -14,10 +14,10 @@ const routes = [
     },
 
     {
-        path: '/loader',
-        name: 'Loader',
+        path: '/searchpokemon',
+        name: 'SearchPokemon',
         component: () =>
-            import ('../components/UI/Loading.vue')
+            import ('../views/SearchPokemon.vue')
     }
 
 ]

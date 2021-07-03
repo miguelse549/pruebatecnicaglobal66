@@ -18,12 +18,13 @@ module.exports = {
                     gray: '#BFBFBF'
                 },
                 background: {
-                    lightGray: '#E5E5E5',
+                    lightgray: '#E5E5E5',
                     white: '#FFFFFF'
                 },
                 fontColor: {
                     gray: '#5E5E5E',
-                    darkgray: '#353535'
+                    darkgray: '#353535',
+                    ligthgray: '#BFBFBF'
                 }
 
             }

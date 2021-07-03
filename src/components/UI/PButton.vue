@@ -10,7 +10,7 @@
         hover:bg-button-redDark
       "
     >
-      {{ nameButton }}
+      <i class="mr-2" v-if="icon" :class="icon"></i>{{ nameButton }}
     </button>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default {
     nameButton: {
       type: String,
       default: "Botón",
+    },
+    icon: {
+      type: String,
+      default: null,
     },
   },
 };
