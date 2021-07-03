@@ -2,13 +2,21 @@
   <div>
     <button
       class="
+        flex
+        justify-center
+        align-items
         padding-x
         bg-button-red
         text-white
         font-bold
         rounded-full
         hover:bg-button-redDark
+        w-40
+        md:w-64
       "
+      :style="{
+        'background-color': backgroundcolor ? backgroundcolor : '',
+      }"
     >
       <i class="mr-2" v-if="icon" :class="icon"></i>{{ nameButton }}
     </button>
@@ -26,6 +34,14 @@ export default {
       type: String,
       default: null,
     },
+    size: {
+      type: Number,
+      default: null,
+    },
+    backgroundcolor: {
+      type: String,
+      default: null,
+    },
   },
 };
 </script>
@@ -33,5 +49,10 @@ export default {
 .padding-x{
     padding: 11px 20px;
 }
+i{
+  font-size: 22px;
+}
+
+
 
 </style>

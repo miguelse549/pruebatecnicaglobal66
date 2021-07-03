@@ -12,7 +12,7 @@
       "
     >
       <div>
-        <img src="../assets/logo.svg" alt="logoPokemon" />
+        <img class="animate-pulse" src="../assets/logo.svg" alt="logoPokemon" />
       </div>
       <div class="flex flex-col items-center max-w-screen-sm">
         <h1 class="font-bold text-2xl text-fontColor-darkgray text-h2">

@@ -1,30 +1,28 @@
 <template>
-  <div class="bg-background-lightgray h-screen pt-10">
+  <div class="bg-background-lightgray min-h-screen pt-10">
     <div class="container-width mx-auto">
       <div class="search flex items-center bg-white">
         <i class="fas fa-search mr-2 text-fontColor-ligthgray"></i
         ><input class="w-full" type="text" placeholder="Search" />
       </div>
-      <div class="text-center noitems">
+      <div class="flex flex-col items-center noitems">
         <h1 class="text-h1 text-fontColor-darkgray">Uh-oh!</h1>
         <p class="text-pd text-fontColor-gray">
           You look lost on your journey!
         </p>
-        <PButton
-          class="mt-3"
-          :icon="'fas fa-user'"
-          :nameButton="'Go back home'"
-        />
+        <PButton class="mt-3" :nameButton="'Go back home'" />
       </div>
     </div>
+    <BottonNavegation />
   </div>
 </template>
 
 <script>
 import PButton from "@/components/UI/PButton.vue";
+import BottonNavegation from "@/components/UI/BottonNavegation.vue";
 export default {
   name: "SearchPokemon",
-  components: { PButton },
+  components: { PButton, BottonNavegation },
 };
 </script>
 
@@ -42,7 +40,12 @@ export default {
 }
 input{
   height: 30px;
+  
 }
+input:focus{
+  outline:none
+}
+
 .noitems{
   margin-top: 50px;
 }
