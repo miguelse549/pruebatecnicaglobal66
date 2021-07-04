@@ -24,7 +24,8 @@
         </p>
       </div>
 
-      <PButton :nameButton="'Get Started'"></PButton>
+      <PButton :nameButton="'Get Started'" @clicked="redirectToSearch">
+      </PButton>
     </div>
   </div>
 </template>
@@ -38,6 +39,14 @@ export default {
     PButton,
     Loading,
   },
+  methods:{
+    redirectToSearch(){
+      this.$router.push({
+        name:'SearchPokemon'
+      })
+
+    }
+  }
 };
 </script>
 

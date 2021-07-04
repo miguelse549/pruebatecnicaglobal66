@@ -14,6 +14,7 @@
         w-40
         md:w-64
       "
+      @click="$emit('clicked')"
       :style="{
         'background-color': backgroundcolor ? backgroundcolor : '',
       }"
@@ -46,13 +47,10 @@ export default {
 };
 </script>
 <style scoped>
-.padding-x{
-    padding: 11px 20px;
+.padding-x {
+  padding: 11px 20px;
 }
-i{
+i {
   font-size: 22px;
 }
-
-
-
 </style>
