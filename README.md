@@ -1,34 +1,9 @@
 # pruebatecnicaglobal66
 
-## Project setup
 ```
-npm install
+Para el diseño de la interfaz gráfica se utilizó la librería Tailwind CSS de la cual se sobrescribierón algunos estilos de acuerdo al diseño figma que fue enviado, se utilizó Tailwind para crear componentes personalizados reutilizables como botones, cards, modales y la barra de navegación.
+Para el diseño responsivo se hizo uso de los breakpoints de Tailwind y algunos personalizados haciendo uso de los media queries.
+Para el consumo de la API se hizo uso de la libreria axios, para persistir los favoritos se hizo uso de vuex y para copiar la data al portapapeles se uso Vue Clipboard 2
+
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
