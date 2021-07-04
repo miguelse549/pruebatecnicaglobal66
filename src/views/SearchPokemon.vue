@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Loading v-if="loaded" />
     <Modal
       v-if="showModal"
       :imgUrl="details.imgUrl"
@@ -31,10 +32,7 @@
           @clicked="detailsPokemon(pokemon.name, pokemon.isFavorite)"
           @reloadList="reloadList"
         />
-        <div
-          class="flex flex-col items-center noitems"
-          v-if="dataPokemons.length === 0"
-        >
+        <div class="flex flex-col items-center noitems" v-if="noData">
           <h1 class="text-h1 text-fontColor-darkgray">Uh-oh!</h1>
           <p class="text-pd text-fontColor-gray">
             You look lost on your journey!
@@ -45,8 +43,12 @@
             @clicked="redirectToHome"
           />
         </div>
+
       </div>
-      <BottonNavegation />
+      <BottonNavegation
+        @loadFavorites="filterFavorites"
+        @reloadList="reloadList"
+      />
     </div>
   </div>
 </template>
@@ -57,7 +59,9 @@ import PButton from "@/components/UI/PButton.vue";
 import BottonNavegation from "@/components/UI/BottonNavegation.vue";
 import Modal from "@/components/UI/Modal.vue";
 import Card from "@/components/UI/Card.vue";
+import Loading from "@/components/UI/Loading.vue";
 import axios from "axios";
+
 export default {
   name: "SearchPokemon",
   data() {
@@ -65,6 +69,8 @@ export default {
       dataPokemons: [],
       search: "",
       showModal: false,
+      loaded: false,
+      noData: false,
       details: {
         name: null,
         weight: null,
@@ -82,6 +88,7 @@ export default {
     BottonNavegation,
     Card,
     Modal,
+    Loading,
   },
   methods: {
     redirectToHome() {
@@ -104,6 +111,10 @@ export default {
                 pokemon.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
             );
             this.dataPokemons = filterPokemon;
+
+            this.dataPokemons.length == 0
+              ? (this.noData = true)
+              : (this.noData = false);
           }
         })
         .catch((error) => {
@@ -111,22 +122,26 @@ export default {
         });
     },
     detailsPokemon(name, isFavorite) {
+      this.loaded = true;
       axios
         .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then((response) => {
-          //this.details = response.data;
-          const { data } = response;
-          this.details.name = data.name;
-          this.details.weight = data.weight;
-          this.details.height = data.height;
-          this.details.types = data.types.map((type) => type.type.name);
-          this.details.types = this.details.types.join();
-          this.details.imgUrl = data.sprites.other.dream_world.front_default;
-          this.details.isFavorite = isFavorite;
-          this.showModal = true;
+          setTimeout(() => {
+            const { data } = response;
+            this.details.name = data.name;
+            this.details.weight = data.weight;
+            this.details.height = data.height;
+            this.details.types = data.types.map((type) => type.type.name);
+            this.details.types = this.details.types.join();
+            this.details.imgUrl = data.sprites.other.dream_world.front_default;
+            this.details.isFavorite = isFavorite;
+            this.showModal = true;
+            this.loaded = false;
+          }, 1500);
         })
         .catch((error) => {
           console.log(error);
+          this.loaded = false;
         });
     },
     isfavorite() {
@@ -144,6 +159,11 @@ export default {
     },
     reloadList() {
       this.getPokemons();
+    },
+    filterFavorites() {
+      this.dataPokemons = this.dataPokemons.filter(
+        (favorite) => favorite.isFavorite
+      );
     },
   },
   async created() {
