@@ -7,6 +7,7 @@
       :weight="details.weight"
       :height="details.height"
       :types="details.types"
+      :isFavorite="details.isFavorite"
       @closeModal="closeModal"
     />
     <div class="main-container bg-background-lightgray pt-10">
@@ -26,8 +27,9 @@
           v-for="(pokemon, index) of dataPokemons"
           :key="index"
           :namePokemon="pokemon.name"
-          :isFavorite="true"
-          @clicked="detailsPokemon(pokemon.name)"
+          :isFavorite="pokemon.isFavorite"
+          @clicked="detailsPokemon(pokemon.name, pokemon.isFavorite)"
+          @reloadList="reloadList"
         />
         <div
           class="flex flex-col items-center noitems"
@@ -50,6 +52,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import PButton from "@/components/UI/PButton.vue";
 import BottonNavegation from "@/components/UI/BottonNavegation.vue";
 import Modal from "@/components/UI/Modal.vue";
@@ -67,9 +70,12 @@ export default {
         weight: null,
         height: null,
         types: null,
-        imgUrl:null
+        imgUrl: null,
       },
     };
+  },
+  computed: {
+    ...mapState(["listFavorite"]),
   },
   components: {
     PButton,
@@ -88,6 +94,10 @@ export default {
         .get("https://pokeapi.co/api/v2/pokemon")
         .then((response) => {
           this.dataPokemons = response.data.results;
+          for (let pokemon of this.dataPokemons) {
+            pokemon.isFavorite = false;
+          }
+          this.isfavorite();
           if (value) {
             var filterPokemon = this.dataPokemons.filter(
               (pokemon) =>
@@ -100,7 +110,7 @@ export default {
           console.log(error);
         });
     },
-    detailsPokemon(name) {
+    detailsPokemon(name, isFavorite) {
       axios
         .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
         .then((response) => {
@@ -111,16 +121,29 @@ export default {
           this.details.height = data.height;
           this.details.types = data.types.map((type) => type.type.name);
           this.details.types = this.details.types.join();
-          this.details.imgUrl=data.sprites.other.dream_world.front_default;
-          console.log(response.data);
+          this.details.imgUrl = data.sprites.other.dream_world.front_default;
+          this.details.isFavorite = isFavorite;
           this.showModal = true;
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    isfavorite() {
+      for (let p1 of this.listFavorite) {
+        for (let p2 of this.dataPokemons) {
+          if (p1 === p2.name) {
+            p2.isFavorite = true;
+            break;
+          }
+        }
+      }
+    },
     closeModal() {
       this.showModal = false;
+    },
+    reloadList() {
+      this.getPokemons();
     },
   },
   async created() {
@@ -132,7 +155,7 @@ export default {
 <style scoped>
 .main-container {
   height: calc(100vh - 80px);
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 .container-width {
   max-width: 570px;

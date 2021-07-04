@@ -10,9 +10,11 @@
       px-3
       cursor-pointer
     "
-    
   >
-    <h3 class="text-h3 text-fontColor-darkgray capitalize w-full" @click="$emit('clicked')">
+    <h3
+      class="text-h3 text-fontColor-darkgray capitalize w-full"
+      @click="$emit('clicked')"
+    >
       {{ namePokemon }}
     </h3>
     <div
@@ -24,6 +26,7 @@
         justify-center
         items-center
       "
+      @click="addFavorite()"
     >
       <i
         class="fas fa-star"
@@ -33,6 +36,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   props: {
     namePokemon: {
@@ -42,7 +46,23 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapState(["listFavorite"]),
+  },
+  methods: {
+    ...mapMutations(["addPokemonFavorite", "deleteFavorite"]),
 
+    addFavorite() {
+      if (!this.listFavorite.includes(this.namePokemon)) {
+        this.addPokemonFavorite(this.namePokemon);
+      } else {
+        const index = this.listFavorite.indexOf(this.namePokemon);
+        index > -1 ? this.listFavorite.splice(index, 1) : 0;
+        this.deleteFavorite(this.listFavorite);
+      }
+      this.$emit("reloadList")
+    },
   },
 };
 </script>

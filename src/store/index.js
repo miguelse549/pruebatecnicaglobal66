@@ -8,29 +8,17 @@ export default new Vuex.Store({
         listFavorite: [],
     },
     mutations: {
-        addFavorite(state, payload) {
-            state.listFavorite = payload
+        addPokemonFavorite(state, payload) {
+            state.listFavorite.push(payload)
         },
+        
         deleteFavorite(state, payload) {
             state.listFavorite = payload
 
         }
     },
     actions: {
-        /*async getPokemons({ commit }) {
-            await axios.get("https://pokeapi.co/api/v2/pokemon")
-                .then(response => {
-                    const { data } = response;
-                    commit('loadData', data.results)
-                    console.log("store " + JSON.stringify(data.results))
 
-                })
-                .catch(error => {
-                    console.log(error)
-
-                })
-
-        }*/
     },
     modules: {}
 })

@@ -28,7 +28,10 @@
 
       <div class="details px-8 pt-3">
         <p class="text-p text-fontColor-gray my-2">
-          Name: <span style="font-size: 16px; color: #7c7c7c">{{ name }}</span>
+          Name:
+          <span class="capitalize" style="font-size: 16px; color: #7c7c7c">{{
+            name
+          }}</span>
         </p>
         <hr />
         <p class="text-p text-fontColor-gray my-2">
@@ -43,7 +46,9 @@
         <hr />
         <p class="text-p text-fontColor-gray my-2">
           Types:
-          <span style="font-size: 16px; color: #7c7c7c">{{ types }}</span>
+          <span class="capitalize" style="font-size: 16px; color: #7c7c7c">{{
+            types
+          }}</span>
         </p>
         <hr />
       </div>
@@ -63,9 +68,14 @@
             flex
             justify-center
             items-center
+            cursor-pointer
           "
+          @click="addFavorite()"
         >
-          <i class="fas fa-star text-fontColor-ligthgray"></i>
+          <i
+            class="fas fa-star"
+            :style="{ color: isFavorite ? '#ECA539' : '#BFBFBF' }"
+          ></i>
         </div>
       </div>
     </div>
@@ -74,6 +84,7 @@
 
 <script>
 import PButton from "@/components/UI/PButton.vue";
+import { mapState, mapMutations, createLogger } from "vuex";
 
 export default {
   name: "Loading",
@@ -93,19 +104,35 @@ export default {
     types: {
       type: String,
     },
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       nameButton: "Share to my friends",
-      detailsPokemon:`Name: ${this.name}, Weight: ${this.weight}, Height: ${this.height}, Types: ${this.types}`
+      detailsPokemon: `Name: ${this.name}, Weight: ${this.weight}, Height: ${this.height}, Types: ${this.types}`,
     };
   },
-
   components: {
     PButton,
   },
+  computed: {
+    ...mapState(["listFavorite"]),
+  },
   methods: {
+    ...mapMutations(["addPokemonFavorite", "deleteFavorite"]),
 
+    addFavorite() {
+      if (!this.listFavorite.includes(this.name)) {
+        this.addPokemonFavorite(this.name);
+      } else {
+        const index = this.listFavorite.indexOf(this.name);
+        index > -1 ? this.listFavorite.splice(index, 1) : 0;
+        this.deleteFavorite(this.listFavorite);
+      }
+    },
     onCopy() {
       this.nameButton = "Copied!";
     },
